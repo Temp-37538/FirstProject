@@ -1,37 +1,60 @@
 {
-	"$schema": "https://turbo.build/schema.json",
-	"ui": "tui",
-	"tasks": {
-		"build": {
-			"dependsOn": ["^build"],
-			"inputs": ["$TURBO_DEFAULT$", ".env*"],
-			"outputs": ["dist/**"]
-		},
-		"lint": {
-			"dependsOn": ["^lint"]
-		},
-		"check-types": {
-			"dependsOn": ["^check-types"]
-		},
-		"dev": {
-			"cache": false,
-			"persistent": true
-		},
-		"db:push": {
-			"cache": false,
-			"persistent": true
-		},
-		"db:studio": {
-			"cache": false,
-			"persistent": true
-		},
-		"db:migrate": {
-			"cache": false,
-			"persistent": true
-		},
-		"db:generate": {
-			"cache": false,
-			"persistent": true
-		}
-	}
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:push": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false,
+      "persistent": true
+    }
+  },
+  "globalEnv": [
+    "CORS_ORIGIN",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "STACK_SECRET_SERVER_KEY",
+    "NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY",
+    "NEXT_PUBLIC_STACK_PROJECT_ID",
+    "POSTGRES_PRISMA_URL",
+    "POSTGRES_URL_NO_SSL",
+    "POSTGRES_DATABASE",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_HOST",
+    "POSTGRES_USER",
+    "POSTGRES_URL_NON_POOLING",
+    "POSTGRES_URL",
+    "PGPASSWORD",
+    "PGDATABASE",
+    "PGUSER",
+    "PGHOST_UNPOOLED",
+    "PGHOST",
+    "DATABASE_URL_UNPOOLED",
+    "DATABASE_URL"
+  ]
 }
