@@ -1,6 +1,6 @@
+import { auth } from "@FirstProject/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "@FirstProject/auth";
 import prisma from "../../../../../../packages/db/src";
 
 const f = createUploadthing();
@@ -15,7 +15,7 @@ export const ourFileRouter = {
        * @see https://docs.uploadthing.com/file-routes#route-config
        */
       maxFileSize: "4MB",
-      maxFileCount: 1,
+      maxFileCount: 5,
     },
   })
     // Set permissions and file types for this FileRoute
@@ -26,7 +26,7 @@ export const ourFileRouter = {
       });
 
       // If you throw, the user will not be able to upload
-      if (!user) throw new UploadThingError("Unauthorized");
+      if (!user?.user.id) throw new UploadThingError("Unauthorized");
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { userId: user?.user.id };
     })

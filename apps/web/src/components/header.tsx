@@ -6,7 +6,7 @@ import UserMenu from "./user-menu";
 export default function Header() {
   const links = [{ to: "/", label: "Home" }] as const;
 
-	return (
+  return (
     <div>
       <div className="flex flex-row items-center justify-between p-4">
         <nav className="flex gap-4 text-lg">
