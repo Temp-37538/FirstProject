@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
-import prisma from "../../../../packages/db/src";
+import { getMyImages } from "../../server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
@@ -28,14 +28,7 @@ export default async function Home() {
     );
   }
 
-  const test = await prisma.images.findMany({
-    orderBy: {
-      id: "desc",
-    },
-    where: {
-      authorId: session.user.id,
-    },
-  });
+  const images = await getMyImages(session.user.id);
 
   return (
     <div className="h-full flex flex-col gap-4">
@@ -44,7 +37,7 @@ export default async function Home() {
       </h1>
       <div className="container mx-auto w-[80%] px-4 py-2">
         <div className="flex flex-wrap justify-start gap-6 w-full">
-          {test.map((image) => {
+          {images?.map((image) => {
             return (
               <div
                 key={image.id}
