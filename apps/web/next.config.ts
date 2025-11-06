@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images : {
+    remotePatterns :[{
+      hostname : "u7m50ivb7t.ufs.sh"
+    }]
+  }
 };
 
 export default nextConfig;

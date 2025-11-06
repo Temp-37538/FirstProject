@@ -3,6 +3,7 @@ import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { getMyImages } from "../../server/queries";
+import Image from "next/image";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
@@ -43,7 +44,13 @@ export default async function Home() {
                 key={image.id}
                 className="flex flex-col w-48 items-center gap-2"
               >
-                <img src={image.url} alt="An image" />
+                <Image
+                  src={image.url} 
+                  width={480}
+                  height={480}
+                  style={{ objectFit: "contain" }}
+                  alt={image.name}
+                />
                 <p>{image.name}</p>
               </div>
             );
