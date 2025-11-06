@@ -44,7 +44,7 @@ export default async function Home() {
                 key={image.id}
                 className="flex flex-col w-48 items-center gap-2"
               >
-                <Link href={`/photos/[${image.id}]`}>
+                <Link href={`/photos/${image.id}`}>
                   <Image
                     src={image.url}
                     width={480}

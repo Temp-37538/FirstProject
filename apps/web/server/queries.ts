@@ -23,6 +23,10 @@ export async function getImage(id: number) {
     headers: await headers(),
   });
 
+  if (!session) {
+    throw new Error("Not logged-in");
+  }
+
   if (session) {
     const image = await prisma.images.findFirst({
       where: {
@@ -33,8 +37,8 @@ export async function getImage(id: number) {
 
     if (!image) throw new Error("Image not found");
 
+    if (image.authorId !== session.user.id) throw new Error("Unauthorized");
+
     return image;
-  } else {
-    throw new Error("Image not found");
   }
 }
