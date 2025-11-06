@@ -8,6 +8,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  images        Images[]
 
   @@unique([email])
   @@map("user")
@@ -63,7 +64,9 @@ model Images {
   name      String
   url       String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   @@map("images")
 }

@@ -5,7 +5,7 @@
 - [x] Tidy up build process  
 - [x] Actually set up a database (vercel postgres)  
 - [x] Attach database to UI  
-- [ ] Add authentication (w/ BetterAuth)  
+- [x] Add authentication (w/ BetterAuth)  
 - [ ] Add image upload  
 - [ ] "taint" (server-only)  
 - [ ] Use Next/Image component  
