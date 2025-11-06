@@ -1,15 +1,16 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
+import { UploadButton } from "@/utils/uploadthing";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import UserMenu from "./user-menu";
-import { UploadButton } from "@/utils/uploadthing";
-import { useRouter } from "next/navigation";
 
 export default function Header() {
-  const links = [
-    { to: "/", label: "Home" },
-  ] as const;
+  const links = [{ to: "/", label: "Home" }] as const;
   const router = useRouter();
+
+  const { data: session } = authClient.useSession();
 
   return (
     <div>
@@ -24,18 +25,20 @@ export default function Header() {
           })}
         </nav>
         <div className="flex items-center gap-2">
-          <UploadButton
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              // Do something with the response
-              router.refresh();
-              alert("Upload Completed");
-            }}
-            onUploadError={(error: Error) => {
-              // Do something with the error.
-              alert(`ERROR! ${error.message}`);
-            }}
-          />
+          {session && (
+            <UploadButton
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                // Do something with the response
+                router.refresh();
+                alert("Upload Completed");
+              }}
+              onUploadError={(error: Error) => {
+                // Do something with the error.
+                alert(`ERROR! ${error.message}`);
+              }}
+            />
+          )}
           <ModeToggle />
           <UserMenu />
         </div>
