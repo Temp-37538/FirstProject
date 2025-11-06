@@ -24,14 +24,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <NextSSRPlugin 
-        routerConfig={extractRouterConfig(ourFileRouter)}
-      /> 
+      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -39,6 +39,7 @@ export default function RootLayout({
           <div className="grid grid-rows-[auto_1fr] gap-4 h-svh">
             <Header />
             {children}
+            {modal}
           </div>
         </Providers>
       </body>

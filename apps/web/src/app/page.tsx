@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { getMyImages } from "../../server/queries";
 import Image from "next/image";
+import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
@@ -44,13 +44,15 @@ export default async function Home() {
                 key={image.id}
                 className="flex flex-col w-48 items-center gap-2"
               >
-                <Image
-                  src={image.url} 
-                  width={480}
-                  height={480}
-                  style={{ objectFit: "contain" }}
-                  alt={image.name}
-                />
+                <Link href={`/photos/[${image.id}]`}>
+                  <Image
+                    src={image.url}
+                    width={480}
+                    height={480}
+                    style={{ objectFit: "contain" }}
+                    alt={image.name}
+                  />
+                </Link>
                 <p>{image.name}</p>
               </div>
             );
