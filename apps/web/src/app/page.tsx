@@ -1,15 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { auth } from "@FirstProject/auth";
-import { headers } from "next/headers";
-import { getMyImages } from "../../server/queries";
 import Image from "next/image";
 import Link from "next/link";
+import { getMyImages } from "../../server/queries";
+import { authClient } from "@/lib/auth-client";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const { data: session } = authClient.useSession();
 
   if (!session?.user) {
     return (

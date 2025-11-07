@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { PostHogProvider } from "./_analytics/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,12 +37,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="grid bg-background h-screen grid-rows-[auto_1fr]">
-            <Header />
-            <main className="overflow-y-scroll">{children}</main>
-          </div>
-          {modal}
-          <div id="modal-root" />
+          <PostHogProvider>
+            <div className="grid bg-background h-screen grid-rows-[auto_1fr]">
+              <Header />
+              <main className="overflow-y-scroll">{children}</main>
+            </div>
+            {modal}
+            <div id="modal-root" />
+          </PostHogProvider>
         </Providers>
       </body>
     </html>

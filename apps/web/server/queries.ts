@@ -1,7 +1,6 @@
 import "server-only";
 import prisma from "../../../packages/db/src";
-import { auth } from "@FirstProject/auth";
-import { headers } from "next/headers";
+import { authClient } from "@/lib/auth-client";
 
 export async function getMyImages(session: string) {
   const image = await prisma.images.findMany({
@@ -19,9 +18,7 @@ export async function getMyImages(session: string) {
 }
 
 export async function getImage(id: number) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const { data: session } = authClient.useSession();
 
   if (!session) {
     throw new Error("Not logged-in");
