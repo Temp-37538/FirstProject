@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useUploadThing } from "../utils/uploadthing";
 import { toast } from "sonner";
+import { usePostHog } from "posthog-js/react";
 
 // inferred input off useUploadThing
 type Input = Parameters<typeof useUploadThing>;
@@ -50,11 +51,15 @@ function UploadThingInputIcon() {
 
 
 export function UploadButton() {
+  const router = useRouter();
+  const posthog = usePostHog()
+
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onUploadBegin: () => {
+      posthog.capture("uploading-start")
       toast.loading("Uploading...", {
         duration: 5000,
-        id: "uploading-toast",
+        id: "uploading-start",
       });
     },
     onClientUploadComplete: () => {
@@ -62,10 +67,10 @@ export function UploadButton() {
       toast.success("Upload Completed", {
         duration: 5000,
       });
+      toast.dismiss("uploading-start")
     },
   });
 
-  const router = useRouter();
 
   return (
     <div className="inline-block">
