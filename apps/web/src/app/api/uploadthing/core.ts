@@ -2,6 +2,7 @@ import { auth } from "@FirstProject/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import prisma from "../../../../../../packages/db/src";
+import { ratelimit } from "../../../../server/ratelimit";
 
 const f = createUploadthing();
 
@@ -28,6 +29,11 @@ export const ourFileRouter = {
       // If you throw, the user will not be able to upload
       if (!user?.user.id) throw new UploadThingError("Unauthorized");
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
+
+      const { success } = await ratelimit.limit(user.user.id);
+
+      if (!success) throw new UploadThingError("Ratelimited")
+
       return { userId: user?.user.id };
     })
 

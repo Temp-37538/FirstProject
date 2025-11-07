@@ -49,28 +49,33 @@ function UploadThingInputIcon() {
   );
 }
 
-
 export function UploadButton() {
   const router = useRouter();
-  const posthog = usePostHog()
+  const posthog = usePostHog();
 
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onUploadBegin: () => {
-      posthog.capture("uploading-start")
+      posthog.capture("uploading-start");
       toast.loading("Uploading...", {
         duration: 5000,
         id: "uploading-start",
       });
+    },
+    onUploadError: (error) => {
+      posthog.capture("upload-error", { error });
+      toast.error("Upload failed", {
+        duration: 5000,
+      }),
+        toast.dismiss("uploading-start");
     },
     onClientUploadComplete: () => {
       router.refresh();
       toast.success("Upload Completed", {
         duration: 5000,
       });
-      toast.dismiss("uploading-start")
+      toast.dismiss("uploading-start");
     },
   });
-
 
   return (
     <div className="inline-block">
