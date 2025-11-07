@@ -2,6 +2,20 @@ import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const coreConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/relay-AMuo/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/relay-AMuo/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ];
+  },
+  // This is required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true, 
   typedRoutes: true,
   reactCompiler: true,
   typescript: {

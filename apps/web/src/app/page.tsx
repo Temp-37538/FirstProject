@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { auth } from "@FirstProject/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { getMyImages } from "../../server/queries";
-import { authClient } from "@/lib/auth-client";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const { data: session } = authClient.useSession();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session?.user) {
     return (
@@ -33,7 +36,7 @@ export default async function Home() {
       <h1 className="text-center text-2xl font-bold">
         Here are your pictures :
       </h1>
-      <div className="container mx-auto w-[80%] px-4 py-2">
+      <div className="container mx-auto w-[90%] px-4 py-2">
         <div className="flex flex-wrap justify-center gap-6 p-4 w-full">
           {images?.map((image) => {
             return (
