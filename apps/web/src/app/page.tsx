@@ -32,13 +32,13 @@ export default async function Home() {
   const images = await getMyImages(session.user.id);
 
   return (
-    <div className="h-full flex flex-col gap-4">
+    <div className="h-full flex flex-col gap-0 p-4">
       <h1 className="text-center text-2xl font-bold">
         Here are your pictures :
       </h1>
       <div className="container mx-auto w-[80%] px-4 py-2">
         <div className="flex flex-wrap justify-center gap-6 p-4 w-full">
-          {[...images, ...images, ...images]?.map((image) => {
+          {images?.map((image) => {
             return (
               <div
                 key={image.id}
