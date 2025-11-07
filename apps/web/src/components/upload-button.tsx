@@ -50,10 +50,17 @@ function UploadThingInputIcon() {
 
 export function UploadButton() {
   const { inputProps } = useUploadThingInputProps("imageUploader", {
-    onClientUploadComplete: (res) => {
+    onUploadBegin: () => {
+      toast.loading("Uploading...", {
+        duration: 5000,
+        id : "uploading-toast",
+      });
+    },
+    onClientUploadComplete: () => {
       router.refresh();
-      alert("Upload Completed");
-      toast.success("Upload Completed");
+      toast.success("Upload Completed", {
+        duration: 5000,
+      });
     },
   });
 
@@ -61,7 +68,9 @@ export function UploadButton() {
 
   return (
     <div className="inline-block">
-      <label className="cursor-pointer" htmlFor="upload-button"><UploadThingInputIcon/></label>
+      <label className="cursor-pointer" htmlFor="upload-button">
+        <UploadThingInputIcon />
+      </label>
       <input
         id="upload-button"
         type="file"

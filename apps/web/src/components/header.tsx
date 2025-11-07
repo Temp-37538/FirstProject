@@ -5,7 +5,7 @@ import UserMenu from "./user-menu";
 import { UploadButton } from "./upload-button";
 
 export default function Header() {
-  const links = [{ to: "/", label: "Home" }] as const;
+  const links = [{ to: "/", label: "Gallery" }] as const;
 
   return (
     <div>

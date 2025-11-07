@@ -13,7 +13,7 @@ export default async function FullPageView(props: { id: number }) {
 
   return (
     <div className="flex justify-center border-t border-zinc-200 h-full w-full">
-      <div className="flex flex-2 justify-center items-center p-4">
+      <div className="flex flex-2 justify-center items-center p-40">
         <img
           className="w-[80%] object-contain"
           src={image?.url}

@@ -36,7 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="grid h-screen grid-rows-[auto_1fr]">
+          <div className="grid bg-background h-screen grid-rows-[auto_1fr]">
             <Header />
             <main className="overflow-y-scroll">{children}</main>
           </div>
