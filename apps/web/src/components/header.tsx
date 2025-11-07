@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import UserMenu from "./user-menu";
+import { UploadButton } from "./upload-button";
 
 export default function Header() {
   const links = [{ to: "/", label: "Home" }] as const;
@@ -18,7 +19,8 @@ export default function Header() {
             );
           })}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex  justify-between items-center gap-6">
+          <UploadButton></UploadButton>
           <UserMenu />
           <ModeToggle />
         </div>

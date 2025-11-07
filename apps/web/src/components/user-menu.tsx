@@ -31,7 +31,7 @@ export default function UserMenu() {
 
   return (
     <>
-      {session && (
+      {/* {session && (
         <UploadButton
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
@@ -44,7 +44,7 @@ export default function UserMenu() {
             alert(`ERROR! ${error.message}`);
           }}
         />
-      )}
+      )} */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">{session.user.name}</Button>
