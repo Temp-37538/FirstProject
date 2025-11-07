@@ -48,12 +48,13 @@ function UploadThingInputIcon() {
   );
 }
 
+
 export function UploadButton() {
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onUploadBegin: () => {
       toast.loading("Uploading...", {
         duration: 5000,
-        id : "uploading-toast",
+        id: "uploading-toast",
       });
     },
     onClientUploadComplete: () => {
