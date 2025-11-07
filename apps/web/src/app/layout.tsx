@@ -36,11 +36,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="grid grid-rows-[auto_1fr] gap-4 h-svh">
+          <div className="grid h-screen grid-rows-[auto_1fr] gap-4">
             <Header />
-            {children}
-            {modal}
+            <main className="overflow-y-scroll">{children}</main>
           </div>
+          {modal}
           <div id="modal-root" />
         </Providers>
       </body>

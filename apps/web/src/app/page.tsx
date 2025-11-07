@@ -37,8 +37,8 @@ export default async function Home() {
         Here are your pictures :
       </h1>
       <div className="container mx-auto w-[80%] px-4 py-2">
-        <div className="flex flex-wrap justify-start gap-6 w-full">
-          {images?.map((image) => {
+        <div className="flex flex-wrap justify-center gap-6 p-4 w-full">
+          {[...images, ...images, ...images]?.map((image) => {
             return (
               <div
                 key={image.id}
