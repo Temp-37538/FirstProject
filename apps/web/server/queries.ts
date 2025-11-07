@@ -3,6 +3,8 @@ import prisma from "../../../packages/db/src";
 import { authClient } from "@/lib/auth-client";
 import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function getMyImages(session: string) {
   const image = await prisma.images.findMany({
@@ -42,4 +44,22 @@ export async function getImage(id: number) {
 
     return image;
   }
+}
+
+export async function deleteImage(id: number) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) throw new Error("Not logged-in");
+
+  await prisma.images.delete({
+    where: {
+      id,
+      authorId: session?.user.id,
+    },
+  });
+
+  // revalidatePath("/") 
+  redirect("/");
 }

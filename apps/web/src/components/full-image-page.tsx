@@ -1,13 +1,14 @@
 import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
-import { getImage } from "../../server/queries";
+import { deleteImage, getImage } from "../../server/queries";
+import { Button } from "./ui/button";
 
 export default async function FullPageView(props: { id: number }) {
   const image = await getImage(props.id);
 
   const uploaderInfo = await auth.api.getSession({
     headers: await headers(),
-  }); 
+  });
 
   return (
     <div className="flex justify-center  h-full w-full">
@@ -29,7 +30,23 @@ export default async function FullPageView(props: { id: number }) {
         <div className="flex w-full items-center p-2 flex-col">
           <span>Created on : </span>
           <span>{image && new Date(image.createdAt).toLocaleDateString()}</span>
-        </div> 
+        </div>
+        <div className="flex w-full items-center p-2 flex-col">
+          <form
+            action={async () => {
+              "use server";
+              await deleteImage(image!.id);
+            }}
+          >
+            <Button
+              type="submit"
+              variant={"destructive"}
+              className="cursor-pointer"
+            >
+              Delete
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );
