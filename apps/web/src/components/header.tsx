@@ -3,9 +3,12 @@ import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import UserMenu from "./user-menu";
 import { UploadButton } from "./upload-button";
+import { authClient } from "@/lib/auth-client";
 
 export default function Header() {
   const links = [{ to: "/", label: "Gallery" }] as const;
+
+  const { data: session } = authClient.useSession();
 
   return (
     <div>
@@ -13,14 +16,14 @@ export default function Header() {
         <nav className="flex gap-4 text-lg">
           {links.map(({ to, label }) => {
             return (
-              <Link key={to} href={to}>
+              <Link className="font-bold text-2xl" key={to} href={to}>
                 {label}
               </Link>
             );
           })}
         </nav>
         <div className="flex  justify-between items-center gap-6">
-          <UploadButton></UploadButton>
+          {session?.user.id ? <UploadButton /> : null}
           <UserMenu />
           <ModeToggle />
         </div>

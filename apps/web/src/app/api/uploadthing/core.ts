@@ -1,4 +1,5 @@
-import { auth } from "@FirstProject/auth";
+import { authClient } from "@/lib/auth-client";
+import { headers } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import prisma from "../../../../../../packages/db/src";
@@ -17,31 +18,31 @@ export const ourFileRouter = {
        */
       maxFileSize: "4MB",
       maxFileCount: 5,
-    },
+    }, 
   })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const user = await auth.api.getSession({
-        headers: req.headers,
+      const { data: session } = await authClient.getSession({
+        fetchOptions: {
+          headers: await headers(),
+        },
       });
-
       // If you throw, the user will not be able to upload
-      if (!user?.user.id) throw new UploadThingError("Unauthorized");
+      if (!session?.user.id) throw new UploadThingError("Unauthorized");
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      const { success } = await ratelimit.limit(session?.user.id);
 
-      const { success } = await ratelimit.limit(user.user.id);
+      if (!success) throw new UploadThingError("Ratelimited");
 
-      if (!success) throw new UploadThingError("Ratelimited")
-
-      return { userId: user?.user.id };
+      return { userId: session?.user.id };
     })
 
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
       console.log("file url", file.ufsUrl);
-
+      
       await prisma.images.create({
         data: {
           name: file.name,

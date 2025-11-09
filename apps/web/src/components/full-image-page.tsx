@@ -11,16 +11,16 @@ export default async function FullPageView(props: { id: number }) {
   });
 
   return (
-    <div className="flex justify-center  h-full w-full">
-      <div className="flex flex-2 justify-center items-center p-40">
+    <div className="flex justify-end h-full w-full">
+      <div className="flex flex-2 justify-center items-center ">
         <img
-          className="w-[80%] object-contain"
+          className="max-h-[80%] object-contain "
           src={image?.url}
           alt={image?.name}
         />
       </div>
       <div className="flex-1 flex justify-start space items-center flex-col border-l border-zinc-500">
-        <h1 className="text-2xl w-full py-4 text-center border-b border-zinc-500 font-bold mb-4">
+        <h1 className="text-2xl ml-2 mr-2 w-full py-4 text-center border-b border-zinc-500 font-bold mb-4">
           {image?.name}
         </h1>
         <div className="flex w-full items-center p-2 flex-col">
@@ -35,7 +35,7 @@ export default async function FullPageView(props: { id: number }) {
           <form
             action={async () => {
               "use server";
-              await deleteImage(image!.id);
+              await deleteImage(image!.id); 
             }}
           >
             <Button

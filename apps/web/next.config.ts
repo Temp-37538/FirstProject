@@ -13,9 +13,9 @@ const coreConfig: NextConfig = {
         destination: "https://us.i.posthog.com/:path*",
       },
     ];
-  },
+  }, 
   // This is required to support PostHog trailing slash API requests
-  skipTrailingSlashRedirect: true, 
+  skipTrailingSlashRedirect: true,
   typedRoutes: true,
   reactCompiler: true,
   typescript: {
@@ -31,9 +31,6 @@ const coreConfig: NextConfig = {
 };
 
 const config = withSentryConfig(coreConfig, {
-  // For all available options, see:
-  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
-
   org: "test-6xv",
 
   project: "javascript-nextjs",

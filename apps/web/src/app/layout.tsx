@@ -1,12 +1,12 @@
+import Header from "@/components/header";
+import Providers from "@/components/providers";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../index.css";
-import Providers from "@/components/providers";
-import Header from "@/components/header";
 import { extractRouterConfig } from "uploadthing/server";
-import { ourFileRouter } from "./api/uploadthing/core";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import "../index.css";
 import { PostHogProvider } from "./_analytics/provider";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` ${geistSans.variable} ${geistMono.variable}  antialiased`}
       >
         <Providers>
           <PostHogProvider>

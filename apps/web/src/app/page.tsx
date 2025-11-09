@@ -33,23 +33,31 @@ export default async function Home() {
 
   return (
     <div className="h-full flex flex-col gap-0 p-4">
-      <h1 className="text-center text-2xl font-bold">
-        Here are your pictures :
-      </h1>
+      {images?.length === 0 ? (
+        <h1 className="text-center text-2xl font-normal">
+          You don't have any pictures yet, go upload some !
+        </h1>
+      ) : (
+        <h1 className="text-center text-4xl font-normal mb-2">
+          Your pictures :
+        </h1>
+      )}
       <div className="container mx-auto w-[90%] px-4 py-2">
         <div className="flex flex-wrap justify-center gap-6 p-4 w-full">
           {images?.map((image) => {
             return (
               <div
                 key={image.id}
-                className="flex flex-col w-48 items-center gap-2"
+                className="flex flex-col w-48 h-48 items-center gap-2"
               >
-                <Link href={`/photos/${image.id}`}>
+                <Link
+                  className="h-full w-full relative"
+                  href={`/photos/${image.id}`}
+                >
                   <Image
                     src={image.url}
                     width={480}
-                    height={480}
-                    style={{ objectFit: "contain" }}
+                    height={480} 
                     alt={image.name}
                   />
                 </Link>

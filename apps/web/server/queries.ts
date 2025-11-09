@@ -1,11 +1,9 @@
-import "server-only";
-import prisma from "../../../packages/db/src";
-import { authClient } from "@/lib/auth-client";
 import { auth } from "@FirstProject/auth";
 import { headers } from "next/headers";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import "server-only";
+import prisma from "../../../packages/db/src";
 import { serverAnalytics } from "./analytics";
+import { redirect } from "next/navigation";
 
 export async function getMyImages(session: string) {
   const image = await prisma.images.findMany({
@@ -69,6 +67,5 @@ export async function deleteImage(id: number) {
     },
   });
 
-  // revalidatePath("/")
   redirect("/");
 }

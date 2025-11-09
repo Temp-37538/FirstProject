@@ -1,8 +1,8 @@
 "use client";
-
 import { type ElementRef, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
+import { Button } from "@/components/ui/button";
 
 export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -19,9 +19,15 @@ export function Modal({ children }: { children: React.ReactNode }) {
   }
 
   return createPortal(
-    <dialog ref={dialogRef} className="w-screen h-screen bg-black/90" onClose={onDismiss}>
+    <dialog
+      ref={dialogRef}
+      className="w-full overflow-y-hidden h-full bg-black/90"
+      onClose={onDismiss}
+    >
       {children}
-      {/* <button onClick={onDismiss} className="close-button" /> */}
+      <Button className="w-fit h-fit absolute top-2 left-2" onClick={onDismiss}>
+        X
+      </Button>
     </dialog>,
     document.getElementById("modal-root")!
   );
